@@ -1,4 +1,4 @@
-
+package fundmentals;
 
 public class ConditionCheck {
 	public static void main(String[] args) {
