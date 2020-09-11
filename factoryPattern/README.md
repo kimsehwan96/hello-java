@@ -90,7 +90,7 @@ public class FactoryPatternTest {
 팩토리객체를 생성하고 각 클래스 인스턴스 생성(.getShape) 및 각 클래스에 구현된 메서드 동작.
 
 
-## FactoryPattern in Python
+# 팩토리 패턴 in Python
 
 ```python3
 from abc import ABC, abstractmethod
