@@ -1,62 +1,104 @@
 package week_4;
 
+//콘솔에 출력하는 용도의 계산기 -> return 이 모두 없다.
+//다른 코드에서 계산 이후의 값을 사용하고 싶다면 return_buffer 메서드를 이용 할 것. (현재 버퍼 상태를 리턴함.)
+
 public class Calculator {
-    int int_result_buffer;
-    double float_result_buffer;
-    boolean buffer_mode; // 0(false)는 int 모드, 1(true) 는 float 모드, 디폴트는 정수모드
-    
+    double result_buffer;
+
     Calculator() {
-        this.int_result_buffer = 0;
-        this.float_result_buffer = 0; // 정수 혹은 실수형 자료들을 0으로 초기화 해서 생성하고, 초기 인자는 필요 없다 (생성 당시에)
-        this.buffer_mode = false;
+        this.result_buffer = 0; // 계산기 생성시 버퍼 0으로 초기화.
     }
-    public void show_current_status() {
-        System.out.println("this is buffer mode " + this.buffer_mode);
-        if (this.buffer_mode == true) {
-            System.out.println("this is int buffer " + this.int_result_buffer);
-        }
-        else {
-            System.out.println("this is float buffer " + this.float_result_buffer);
-        }
-    }
-    public void reset_int_buffer(){
-        this.int_result_buffer = 0;
-        this.buffer_mode = true;
-        System.out.println("reset int buffer");
-    }
-    public void reset_float_buffer(){
-        this.float_result_buffer = 0;
-        this.buffer_mode = false;
-        System.out.println("reset float buffer");
-    }
-    public void add(int x, int y){
-        this.reset_float_buffer();
-        this.int_result_buffer = x + y;
-        System.out.println(this.int_result_buffer);
+    public void show_result() {
+        System.out.println(this.result_buffer);
     }
 
-    public void add(int x){
-        this.reset_float_buffer();
-        this.int_result_buffer += x;
-        System.out.println(this.int_result_buffer);
+    public double return_buffer(){
+        return this.result_buffer;
+    }
+    //reset은 단 2개의 인자만 더하기, 빼기, 나누기, 곱하기가 들어왔을 때 그 두 수만 계산한다고 생각하고 버퍼를 초기화 함
+    // 하나의 인자만 넣었을 경우 기존 버퍼에 저장되어있는 값을 대상으로 계산한다고 생각하고 구현 함.
+    public void reset(){
+        this.result_buffer = 0;
+        System.out.println("buffer reset!!");
     }
 
-    public void add(double x, double y) {
-        this.reset_int_buffer();
-        this.float_result_buffer = x + y;
-        System.out.println(this.float_result_buffer);
+    // 인터페이스 개념. 누군가 계산기 버퍼에 어떤 값을 넣고 싶을때 멤버 변수에 직접 접근하는 것이 아닌, 메서드를 통해서 접근하도록.
+    public void input_number(double x){
+        this.result_buffer = x;
+        this.show_result();
     }
 
-    public void add(double x){
-        this.reset_float_buffer();
-        this.float_result_buffer += x;
-        System.out.println(this.float_result_buffer);
+    public void plus(double x){
+        this.result_buffer += x;
+        this.show_result();
     }
 
+    // 연산 기능들은 여러 인자들을 받을 수 있게 구현한다.
     public void plus(double ...dbs){
+        this.reset();
         for (double d : dbs) {
-            this.float_result_buffer += d;
+            this.result_buffer += d;
         }
-        System.out.println(this.float_result_buffer);
+        this.show_result();
+    }
+
+    public void sub(double ...dbs){
+        this.reset();
+        for (double d : dbs) {
+            this.result_buffer -= d;
+        }
+        this.show_result();
+    }
+
+    public void sub(double x){
+        this.result_buffer = this.result_buffer - x;
+        this.show_result();
+    }
+
+    public void devide(double ...dbs){
+        this.reset();
+        for (double d : dbs){
+            if(d == dbs[0]){
+                this.result_buffer = d;
+            }
+        this.result_buffer = this.result_buffer / d;
+        }
+        this.show_result();
+    }
+
+    public void devide(double x, double y){
+        this.reset();
+        this.result_buffer = x / y;
+        this.show_result();
+    }
+
+    //if just one argument given in devide -> do devide with result buffer
+    public void devide(double x){
+        if (x != 0.0){
+        this.result_buffer = this.result_buffer / x;
+        this.show_result();
+        }
+        else { // 0으로 나누려고 시도하는 상황을 try catch가 아닌 if 문으로 분기처리 함.
+            System.out.println("error occured because you try to devicde number with 0!");
+        }
+
+    }
+
+    public void multiply(double ...dbs){
+        this.reset();
+        for (double d : dbs){
+            // 최초에 0번째 인덱스 값을 넣어준다 -> 버퍼를 처음에 0으로 초기화 했으니까!
+            if (d == dbs[0]){
+                this.result_buffer = d;
+            }
+            this.result_buffer *= d;
+        }
+        this.show_result();
+    }
+    // if just on argumnent  given in multiply -> do multiply with result buffer
+    public void multiply(double x){
+        this.result_buffer = this.result_buffer * x;
+        this.show_result();
     }
 }
