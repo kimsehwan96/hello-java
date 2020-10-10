@@ -13,16 +13,22 @@ public class CalculatorLayout extends JFrame{
         Calculator cal = new Calculator();
 
         Container c = getContentPane();
+        OperatorPad operator = new OperatorPad(cal);
+        NumberPad numpad = new NumberPad(cal);
+        NumberShow numshow = new NumberShow(cal);
         c.setLayout(new GridLayout(3,1));
-        c.add(new NumberShow(cal));
-        c.add(new NumberPad(cal));
-        c.add(new OperatorPad(cal));
+        c.add(numshow);
+        c.add(numpad);
+        c.add(operator);
 
         setSize(600, 600);
         setVisible(true);
+
         
 
     }
+
+
     public static void main(String[] args){
         new CalculatorLayout();
     }
@@ -101,23 +107,26 @@ class OperatorPad extends JPanel{
 
 class NumberShow extends JPanel{
     public NumberShow(Calculator cal){
-        MyActionListener init_listenenr = new MyActionListener(cal);
-        MyResultActionListener listener = new MyResultActionListener(cal);
+        
         setLayout(new GridLayout(1,2));
         JLabel labelText = new JLabel("Reuslt :");
-        JButton labelResult = new JButton("0");
+        JTextField labelResult = new JTextField("0");
         add(labelText);
         add(labelResult);
+        MyActionListener listener = new MyActionListener(cal);
         labelResult.addActionListener(listener);
         setSize(100, 150);
         setVisible(true);
+
     }
 }
 
 
 ///below line are Action Listener Logics...
+// 이거는 외부 클래스로 만들어서 개 어려운 것 같은데?
 class MyActionListener implements ActionListener{
     Calculator cal;
+
     MyActionListener(Calculator cal) {
         this.cal = cal;
     }
@@ -137,7 +146,7 @@ class MyResultActionListener implements ActionListener{
         this.cal = cal;
     }
     public void actionPerformed(ActionEvent e){
-        JButton l = (JButton)e.getSource();
+        JTextField l = (JTextField)e.getSource();
         l.setText(cal.return_str_buffer());
     }
 }
