@@ -290,3 +290,43 @@ p.add(clickButton);
 ## 지금까지 구현 해 본 간단한 계산기 레이아웃
 
 ![5](images/5.png)
+
+
+## Event 처리 부분은 더 공부해야 할듯.. 지금까지 구현 한 내용
+
+- 우선 Action Handler를 커스텀화 해서 작업 해야 하는 듯
+
+```java
+
+///below line are Action Listener Logics...
+class MyActionListener implements ActionListener{
+    Calculator cal;
+    MyActionListener(Calculator cal) {
+        this.cal = cal;
+    }
+    public void actionPerformed(ActionEvent e){
+        JButton b = (JButton)e.getSource();
+        String tmp_buffer;
+        tmp_buffer = b.getText();
+        System.out.println(tmp_buffer);
+        cal.input_number(tmp_buffer);
+        System.out.println(cal.return_str_buffer());
+    }
+}
+
+class MyResultActionListener implements ActionListener{
+    Calculator cal;
+    MyResultActionListener(Calculator cal) {
+        this.cal = cal;
+    }
+    public void actionPerformed(ActionEvent e){
+        JButton l = (JButton)e.getSource();
+        l.setText(cal.return_str_buffer());
+    }
+}
+```
+
+- 생성자에 cal을 넣은 이유는, Layout을 그려 낼 때 게산 로직을 위한 Calculator 클래스가 생성되고, 오직 하나의 계산기 인스턴스를 가지고 계산 하기 위해서 전달 -> 전달 함.
+
+- 지금 어려운 부분이 ActionListener 의 동작 원리는 대충 알겠으나. 
+- 계산기 로직을 바꿔야 할 수 도 있다는 생각이 들어서 우선 내일 다시 하기 (10/11)
