@@ -95,3 +95,160 @@ public static void main(String[] args){
 
 - 출력 화면
 - contentPane을 알아내고, 여기에 세개의 버튼을 순서대로 붙인 화면이다.
+
+
+```java
+       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+```
+
+이 부분을 추가해야 GUI 앱에서 종료 버튼을 눌렀을 때 실제로 프로세스가 죽는다.
+
+![2](images/2.png)
+
+실제로 setDefaultCloseOperation(JFRAME.EXIT_ON_CLOSE); 코드를 삽입 하지 않으면
+
+GUI 앱 프로세스가 죽지 않는다. 테스트 해보니까 실제로 ps -ef | grep 내 프로그램 이름
+이용해서 프로세스 상태 확인해봤더니 진짜 그렇다!
+
+
+* 왜 main() 메소드가 종료한 이후에도 프레임이 살아있을까?
+    - 콘솔 응용프로그램을 여태 만들었을 때는 자바 프로그램을 실행하면 main 스레드를 만들고, main() 을 실행시켰다.
+    - main() 종료하면 스레드도 종료되고 프로그램이 종료되었었다.
+    - JFrame 객체가 생성되면 main 스레드 외에도 Event Dispatch Thread(이벤트 분배 스레드)가 자동으로 생성되고, main 스레드가 종료되어도 저 스레드가 살아있어서 프로그램이 종료되지 않고 사용자의 입력을 계속 받을 수 있는 상태가 되는거란다.
+
+## 컨테이너와 배치
+
+- 컨테이너와 배치 개념
+    - 컨테이너에 부착되는 컴포넌트들의 위치와 크기는 컨테이너 내부에 있는 배치관리자(Layout Manager) - Batch가 아님에 주의 - 에 의해 결정된다.
+    
+    - 컨테이너마다 배치 관리자가 하나씩 있다.
+    - 배치관리자는 컨테이너에 컴포넌트가 부착되는 시점에 컴포넌트의 위치와 크기을 결정한다.
+
+- 배치 관리자의 종류
+    - FlowLayout 
+        - 컨테이너에 부착되는 순서대로 왼쪽에서 오른쪽으로 컴포넌트를 배치하며, 오른쪽에 더이상 배치할 공간이 없으면 아래쪽으로 내려와서 다시 똑같은 순서로 배치한다.
+    -  BoderLayout
+        - 컨테이너의 공간을 동, 서, 남, 북 , 중앙의 총 5개의 영역으로 나눈다
+        - 응용 프로그램에서 지정한 영역에 컴포넌트를 배치한다.
+        - 지정하지 않으면 중앙에 배치된다
+    - GridLayout
+        - 컨테이너의 공간을 응용프로그램에서 설정한 동일한 크기의 2차원 격자로 나누고, 컴포넌트가 삽입되는 순서대로 좌에서 우, 위에서 아래로 배치한다.
+        - 컴포넌트의 크기는 셀의 크기와 동일하게 설정한다.
+
+- 컨테이너에 새로운 배치 관리자 설정 setLayout() 메서드
+
+```java
+
+Container.setLayout(LayoutManager lm); // lm을 새로운 레이아웃 매니저로 설정한다
+
+```
+
+예를들어서 JPanel에 BorderLayout 배치 관리자를 설정하려면
+
+```java
+JPanel p = new JPanel();
+p.setLayout(new BoderLayout()); // 패널에 Boder layout 배치 관리자를 설정
+```
+
+만약 컨텐트 팬에 배치 관리자를 Flow layout으로 설정하려면
+
+```java
+Container contentPane = frame.getContentPane(); // 프레임의 컨텐트 팬
+contentPane.setLayout(new FlowLayout());
+```
+
+new를 붙여주는 것 꼭 기억할것
+
+
+```java
+
+package SwingStudy;
+
+import javax.swing.*; // 스윙 컴포넌트들 사용하기 위해서
+import java.awt.*; // 폰트 등 그래픽 처리를 위한 클래스들의 경로명
+import java.awt.event.*; // 이벤트 처리에 필요한 기본 클래스들의 경로명
+import javax.swing.event.*; // 스윙 이벤트 처리에 필요한 부분들
+
+
+public class FlowLayoutEx extends JFrame {
+    public FlowLayoutEx(){
+        super("Flow layout test");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container c = getContentPane();
+
+        c.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 40));
+        c.add(new JButton("add"));
+        c.add(new JButton("sub"));
+        c.add(new JButton("mul"));
+        c.add(new JButton("div"));
+        c.add(new JButton("Cacluate"));
+
+        setSize(300, 200);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new FlowLayoutEx();
+    }
+
+}
+
+```
+
+FlowLayout.LEFT는 왼쪽부터 정렬, 30, 40은 gap (패딩같은?) 걸 의미함.
+
+![3](images/3.png)
+
+
+
+* Grid Layout 예시
+
+```java
+package SwingStudy;
+
+import javax.swing.*; // 스윙 컴포넌트들 사용하기 위해서
+import java.awt.*; // 폰트 등 그래픽 처리를 위한 클래스들의 경로명
+import java.awt.event.*; // 이벤트 처리에 필요한 기본 클래스들의 경로명
+import javax.swing.event.*; // 스윙 이벤트 처리에 필요한 부분들
+
+
+public class GridLayoutEx extends JFrame{
+    public GridLayoutEx(){
+        super("Grid Layout test");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container c = getContentPane();
+
+        c.setLayout(new GridLayout(4,3, 5, 5));// 첫 두번쨰 숫자는 행개수, 열개수, 그 뒤 두개는 패딩
+        c.add(new JButton("1"));
+        c.add(new JButton("2"));
+        c.add(new JButton("3"));
+        c.add(new JButton("4"));
+        c.add(new JButton("5"));
+        c.add(new JButton("6"));
+        c.add(new JButton("7"));
+        c.add(new JButton("8"));
+        c.add(new JButton("9"));
+        c.add(new JButton("."));
+        c.add(new JButton("0"));
+        c.add(new JButton("AC"));
+
+        setSize(300,300);
+        setVisible(true);
+
+    }
+    public static void main(String[] args){
+        new GridLayoutEx();
+    }
+}
+
+```
+
+![4](images/4.png)
+
+```java
+GridLayout(4, 3, 5, 5);
+```
+
+이 부분에서 앞에 두 수자는 행과 열, 뒤 두 숫자는 각 셀간의 여유 공간 (상하)를 의미함!!
+
+
