@@ -252,3 +252,41 @@ GridLayout(4, 3, 5, 5);
 이 부분에서 앞에 두 수자는 행과 열, 뒤 두 숫자는 각 셀간의 여유 공간 (상하)를 의미함!!
 
 
+
+
+* 배치 관리자가 없는 컨테이너 (절대 위치를 정할 때 ?)
+
+- 배치 관리자 없는 컨테이너가 필요 한 경우
+
+```java
+container.setLayout(null); // 컨테이너의 배치 관리자 제거)
+
+//예제 코드
+
+Jpanel p = new JPanel();
+p.setLayout(null);
+```
+
+이 때 컴포넌트들을 부착하면 기본 사이즈가 0 x 0으로 지정되어 보이지 않는다구 함
+
+```java
+void setSize(int width, int height) // 컴포넌트를 width x height 크기로 설정
+void setLocation(int x, int y) // 컴포넌트의 왼쪽 상단 모서리 좌표를 x, y로 설정
+void setBounds(int x, int y, int width, int height) // 크기와 위치 동시에 설정
+
+// 예제 코드
+
+Panel p = new JPanel();
+p.setLayout(null);
+
+JButton clickButton = new JButton("CLick");
+clickButton.setSzie(100,40);
+clickButton.setLocation(50, 50);
+p.add(clickButton);
+```
+
+
+
+## 지금까지 구현 해 본 간단한 계산기 레이아웃
+
+![5](images/5.png)
