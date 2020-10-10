@@ -330,3 +330,8 @@ class MyResultActionListener implements ActionListener{
 
 - 지금 어려운 부분이 ActionListener 의 동작 원리는 대충 알겠으나. 
 - 계산기 로직을 바꿔야 할 수 도 있다는 생각이 들어서 우선 내일 다시 하기 (10/11)
+
+
+https://programmingsummaries.tistory.com/62
+
+이 부분을 내일 더 연구해보기
