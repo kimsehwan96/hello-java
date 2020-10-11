@@ -28,7 +28,6 @@ public class CalculatorLayout extends JFrame{
 
     }
 
-
     public static void main(String[] args){
         new CalculatorLayout();
     }
@@ -110,10 +109,10 @@ class NumberShow extends JPanel{
         
         setLayout(new GridLayout(1,2));
         JLabel labelText = new JLabel("Reuslt :");
-        JTextField labelResult = new JTextField("0");
+        JTextField labelResult = new JTextField(cal.return_str_buffer());
         add(labelText);
         add(labelResult);
-        MyActionListener listener = new MyActionListener(cal);
+        MyActionListener listener = new MyActionListener(cal, labelResult);
         labelResult.addActionListener(listener);
         setSize(100, 150);
         setVisible(true);
@@ -125,18 +124,18 @@ class NumberShow extends JPanel{
 ///below line are Action Listener Logics...
 // 이거는 외부 클래스로 만들어서 개 어려운 것 같은데?
 class MyActionListener implements ActionListener{
-    Calculator cal;
+    CalculatorLayout superClass;
 
-    MyActionListener(Calculator cal) {
-        this.cal = cal;
+    MyActionListener(CalculatorLayout superClass) {
+        this.superClass = superClass;
     }
     public void actionPerformed(ActionEvent e){
-        JButton b = (JButton)e.getSource();
-        String tmp_buffer;
-        tmp_buffer = b.getText();
-        System.out.println(tmp_buffer);
-        cal.input_number(tmp_buffer);
-        System.out.println(cal.return_str_buffer());
+        //JButton b = (JButton)e.getSource();
+        //String tmp_buffer;
+        //tmp_buffer = b.getText();
+        //System.out.println(tmp_buffer);
+        //cal.input_number(tmp_buffer);
+        //System.out.println(cal.return_str_buffer());
     }
 }
 
