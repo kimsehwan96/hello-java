@@ -2,12 +2,16 @@ package CalExam;
 
 
 public class Calculator {
-    double result_buffer;
+
+    //result_buffer를 멤버변수로 직접 접근하는것을 방지함.
+    private double result_buffer;
 
     Calculator() {
         this.result_buffer = 0; // 계산기 생성시 버퍼 0으로 초기화.
     }
-    public void show_result() {
+
+    // show result 메서드는 내부에서만 사용하는 메서드. private 했다.
+    private void show_result() {
         System.out.println(this.result_buffer);
     }
 

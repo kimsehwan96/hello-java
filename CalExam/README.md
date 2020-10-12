@@ -8,13 +8,20 @@
 
 ```java
 
+package CalExam;
+
+
 public class Calculator {
-    double result_buffer;
+
+    //result_buffer를 멤버변수로 직접 접근하는것을 방지함.
+    private double result_buffer;
 
     Calculator() {
         this.result_buffer = 0; // 계산기 생성시 버퍼 0으로 초기화.
     }
-    public void show_result() {
+
+    // show result 메서드는 내부에서만 사용하는 메서드. private 했다.
+    private void show_result() {
         System.out.println(this.result_buffer);
     }
 
@@ -139,17 +146,22 @@ public class Calculator {
     }
 }
 
+
 ```
 
 이 계산기 클래스의 멤버 변수로는 result_buffer 를 float 형태로 하나만을 사용하며
 
 생성자에서 0으로 초기화 하여 인스턴스를 만들도록 강제하였다.
 
-메서드로는 더하기, 빼기, 곱하기, 나누기, 초기화, string 값 리턴 등의 메서드를 구현 했다.
+또한 result_buffer를 외부에서 멤버변수로 직접 접근해서 수정하는걸 막을 수 있게 private 을 붙여주었습니다.
 
-실제 GUI 앱을 구현 할 때 사용하지 않을 기능들도 구현 함.
+또한 show_result() 메서드의 경우도 클래스 내 메서드 안에서만 사용되기 때문에 private을 붙였습니다.
 
-* 파이썬에서 사용하는 가변개수 인자가 자바에서도 최근에 구현되었다고 해서 사용함.
+메서드로는 더하기, 빼기, 곱하기, 나누기, 초기화, string 값 리턴 등의 메서드를 구현 했습니다.
+
+실제 GUI 앱을 구현 할 때 사용하지 않을 기능들도 구현 했습니다.
+
+* 파이썬에서 사용하는 가변개수 인자가 자바에서도 최근에 구현되었다고 해서 사용했습니다.
 
 ```python3
 
