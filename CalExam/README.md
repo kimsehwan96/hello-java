@@ -339,17 +339,19 @@ public class CalculatorApp extends JFrame implements ActionListener
             }
             else if (cal.return_str_buffer().equals("0.0") != true)
             {
+                // 0으로 나누는 상황에 대한 예외처리를 위한 로직
+                if ( Double.parseDouble(number.getText()) == 0 )
+                {
+                    cal.reset();
+                    number.setText("0");
+                    result.setText("0으로 나누려고 시도했습니다. 계산기를 초기화 합니다.");
+                }
+                else
+                {
                 cal.devide(number.getText());
                 number.setText("0");
                 result.setText("결과 값 :" + cal.return_str_buffer());
-            }
-
-            // 0으로 나누는 상황에 대한 예외처리를 위한 로직
-            if ( Double.parseDouble(number.getText()) == 0 )
-            {
-                cal.reset();
-                number.setText("0");
-                result.setText("0으로 나누려고 시도했습니다. 계산기를 초기화 합니다.");
+                }
             }
         }
 

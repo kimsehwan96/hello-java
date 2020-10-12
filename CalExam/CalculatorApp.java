@@ -154,7 +154,6 @@ public class CalculatorApp extends JFrame implements ActionListener
                 result.setText("결과 값 :" + cal.return_str_buffer());
                 }
             }
-
         }
 
         //reset 로직
