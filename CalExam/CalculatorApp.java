@@ -64,25 +64,30 @@ public class CalculatorApp extends JFrame implements ActionListener
         new CalculatorApp();
     } 
     
+    //impletments 받은 Actionlisenter의 추상 메서드를 오버라이드해서, 커스텀 구현.
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        // 텍스트 필드에 숫자를 입력하는 이벤트 (엔터)가 발생 했을 시.
         if (e.getSource().equals(number))
         {
             JTextField t = (JTextField)e.getSource();
             cal.input_number(t.getText());
+            number.setText("0");
+            result.setText("결과 값 :" + cal.return_str_buffer());
             System.out.println(cal.return_str_buffer());
         }
 
+        //더하기 버튼 눌렀을 때의 로직
         if (e.getSource().equals(btnPlus))
         {
-            if (cal.result_buffer == 0)
+            if (cal.return_str_buffer().equals("0.0") == true)
             {
                 cal.input_number(number.getText());
                 number.setText("0");
                 result.setText("결과 값 :" + cal.return_str_buffer());
             }
-            if (cal.result_buffer != 0)
+            else if (cal.return_str_buffer().equals("0.0") != true)
             {
                 cal.plus(number.getText());
                 number.setText("0");
@@ -90,15 +95,16 @@ public class CalculatorApp extends JFrame implements ActionListener
             }
         }
 
+        //빼기 버튼을 눌렀을 때의 로직
         if (e.getSource().equals(btnSub))
         {
-            if (cal.result_buffer == 0)
+            if (cal.return_str_buffer().equals("0.0") == true)
             {
                 cal.input_number(number.getText());
                 number.setText("0");
                 result.setText("결과 값 :" + cal.return_str_buffer());
             }
-            if (cal.result_buffer != 0)
+            else if (cal.return_str_buffer().equals("0.0") != true)
             {
                 cal.sub(number.getText());
                 number.setText("0");
@@ -106,15 +112,16 @@ public class CalculatorApp extends JFrame implements ActionListener
             }
         }
 
+        //곱하기 버튼을 눌렀을 때의 로직
         if (e.getSource().equals(btnMul))
         {
-            if (cal.result_buffer == 0)
+            if (cal.return_str_buffer().equals("0.0"))
             {
                 cal.input_number(number.getText());
                 number.setText("0");
                 result.setText("결과 값 :" + cal.return_str_buffer());
             }
-            if (cal.result_buffer != 0)
+            else if (cal.return_str_buffer().equals("0.0") != true)
             {
                 cal.multiply(number.getText());
                 number.setText("0");
@@ -122,32 +129,38 @@ public class CalculatorApp extends JFrame implements ActionListener
             }
         }
 
+        //나누기 버튼을 눌렀을 때의 로직
         if (e.getSource().equals(btnDiv))
         {
-            if (cal.result_buffer == 0)
+            if (cal.return_str_buffer().equals("0.0"))
             {
                 cal.input_number(number.getText());
                 number.setText("0");
                 result.setText("결과 값 :" + cal.return_str_buffer());
             }
-            if (cal.result_buffer != 0)
+            else if (cal.return_str_buffer().equals("0.0") != true)
             {
                 cal.devide(number.getText());
                 number.setText("0");
                 result.setText("결과 값 :" + cal.return_str_buffer());
             }
+
+            // 0으로 나누는 상황에 대한 예외처리를 위한 로직
+            if ( Double.parseDouble(number.getText()) == 0 )
+            {
+                cal.reset();
+                number.setText("0");
+                result.setText("0으로 나누려고 시도했습니다. 계산기를 초기화 합니다.");
+            }
         }
 
-
-
+        //reset 로직
         if (e.getSource().equals(btnReset))
         {
             cal.reset();
             result.setText("계산기 초기화");
             number.setText("0");
         }
-
-
     }
     
 }
