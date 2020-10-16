@@ -356,4 +356,127 @@ public class Calculator {
     - 정적 메소드 선언 시 this 키워드 사용 불가
     - 그니까, Pure function 만들 때 사용해라 쫌 !!!
 
-## 좀 이따 싱글톤 정라ㅣ 예정
+## 싱 글 톤 !!
+
+- 전체 프로그램에서 단 하나의 객체만을 만들도록 보장하는 코딩 기법
+- 싱글톤 작성 방법
+    - 클래스 외부에서 new 연산자를 통해 생성자 호출하는 것 불가능 하도록 private 접근 제한자 이용
+    - 자신의 타입인 정적 필드 선언 후 자신의 객체 생성해 초기화
+    - 외부에서 호출할 수 있는 getinstace() 선언
+    - 정적 필드에서 참조하는 자신의 객체 리턴
+
+```java
+
+public class 클래스 {
+    //정적필드
+    private static 클래스 singleton = new 클래스();
+
+    private 클래스 () {
+        //생성자 로직
+    }
+    static 클래스 getInstace(){
+        return singleton;
+    }
+}
+```
+
+```java
+
+public class Singleton {
+    private static Singleton singleton = new Singleton();
+
+    private Singleton() {}
+    
+    static Singleton getInstance() {
+        return singleton;
+    }
+    public static void main(String[] args) {
+        Singleton obj1 = Singleton.getInstance();
+        Singleton obj2 = Singleton.getInstance();
+
+        if (obj1 == obj2) {
+            System.out.println("같은 싱글턴 객체당");
+        }
+        else {
+            System.out.println("다른 싱긍턴 객체당!");
+        }
+    }
+}
+
+
+```
+
+## 파이썬에서는 씽글턴 객체를 어케 만들까?
+
+여러가지 기법들이 있으니 하나씩 까보자!!
+
+1. 메서드 타입
+
+```python3
+
+class SingletonInstane:
+  __instance = None
+
+  @classmethod
+  def __getInstance(cls):
+    return cls.__instance
+
+  @classmethod
+  def instance(cls, *args, **kargs):
+    cls.__instance = cls(*args, **kargs)
+    cls.instance = cls.__getInstance
+    return cls.__instance
+
+class BaseClass:
+    def __init__(self):
+        self.name = 'kim'
+    def get_name(self):
+        return self.name
+
+class MyClass(BaseClass, SingletonInstane):
+  pass
+
+c1 = MyClass.instance()
+c2 = MyClass.instance()
+print(c1.get_name())
+
+if id(c1) == id(c2):
+    print("c1 & c2 are same instance")
+else:
+    print("c1 & c2 are not same instance")
+```
+
+* 아주 좋은 방법인 것 같다.
+
+또 다른 방식
+-> 살짝 느리지만 일반적인 클래스처럼 쓸 수 있다. 가장 범용적
+
+```python3
+class Singleton(object):
+  _instance = None
+  def __new__(class_, *args, **kwargs):
+    if not isinstance(class_._instance, class_):
+        class_._instance = object.__new__(class_, *args, **kwargs)
+    return class_._instance
+
+class MyClass(Singleton, BaseClass):
+  pass
+```
+
+## final 필드와 상수
+
+- final 필드
+    - 초기값이 저장되면 최종값이 되어 프로그램 실행 도중 수정 불가
+    - final 필드의 초기값 주는 방법
+        - 단순 값일 경우 필드 선언 시 초기화 (주로 정적 필드(상수)일 경우)
+        - 객체 생성 시 외부 데이터로 초기화 필요한 경우 생성자 초기화(주로 인스턴스 필드일 경우)
+    - 인스턴스 final 필드
+        - 객체에 한번에 초기화 된 데이터를 변경불가로 만들경우(ex 주민번호)
+
+        `final 타입 필드 [= 초기값];`
+        `final String ssn; //생성자에서 초기화`
+
+    - 정적 final 필드 (관례적으로 모두 대문자로 작성)
+
+파이썬에서도 보통 환경변수나, 변하지 않는 값들은 대문자로 작성한다.
+물론 접근해서 변하게 할 수 있지만... 하지말자 ㅎㅎ..
