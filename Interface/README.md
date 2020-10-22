@@ -40,7 +40,7 @@ class BaseClass(abc.ABC):
     
     @abc.abstractmethod
     def do_this(self):
-        raise Excpetion
+        raise Exception #오픈소스들을 보면 Exception 클래스를 커스텀해서 구현해서, 이런 추상메서드 안에 익셉션을 박아놓더라구
     # 익셉션을 raise 하지않더라도, 상속받은 클래스가 구현 안하면 에러 발생함
 
 class TestClass(BaseClass):
