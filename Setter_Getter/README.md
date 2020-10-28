@@ -89,3 +89,28 @@ public class SetterGetter {
 
 
 
+## Getter와 Setter를 파이썬에서도?!
+
+```python3
+class Test:
+    def __init__(self):
+        self.__age = 0
+    
+    @property
+    def age(self):
+        return self.__age
+
+    @age.setter
+    def age(self, value):
+        self.__age = value
+
+if __name__ == "__main__":
+    james = Test()
+    james.age = 20
+    print(james.age)
+```
+
+확인해보면..
+
+self.__age 이므로 외부에서 임의로 수정 불가능 하지만.
+@age.setter 와 @property를 붙여줬기 때문에 객체.속성으로 접근 가능하다.
