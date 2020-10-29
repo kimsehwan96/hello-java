@@ -220,5 +220,58 @@ String str = String.valueOf(3);
 //기본 타입을 문자열로 변환
 ```
 
+## 변수와 시스템 입출력
 
-* 포메팅 문자열은 내일..
+- 표준 출력 장치 : 모니터
+- 표준 입력 장치 : 키보드 
+
+* System.out
+    - 시스템의 표준 출력 장치로 출략
+
+* System.in 
+    - 시스템의 표준 입력 장치에서 읽음
+
+* println() 메소드
+    - 괄호 안에 리터럴 넣으면 그대로 출력 / 변수 넣으면 저장된 값 출력
+
+- 다양한 출력 메서드
+    - println(내용); -> 괄호 안의 내용을 출력하고 행을 바꿔라
+    - print(내용); -> 괄호 안의 내용을 출력만 해라
+    - printf("형식 문자열", 값1, 값2...); -> 괄호 안의 첫 번째 문자열 형식대로 내용을 출력해라
+
+* printf() 메서드
+    - 개발자가 원하는 형식화된 문자열 (formal string)출력 
+
+```java
+System.out.printf("이름 : %s" , "김세환");
+System.out.printf("나이: %d" , 25); 
+System.out.printf("이름 %1$s, 나이 %2$d" , "김세환", 25);  
+// 형식 문자열에 포함될 값 2개 이상인 경우 값의 순번을 표시해야 함 
+/// % $ 숫자 포메팅문자
+
+```
+
+`%d, %f, %s` 형식 지정자로써 사용 가능하다.
+
+* 키보드에서 입력된 내용을 변수에 저장하기
+
+```java
+Scanner scanner = new Scanner(System.in);
+
+String inputData = scanner.nextLine();
+// enter 입력 이전까지 입력된 문자열을 읽음
+```
+
+
+* 기본 타입과의 값 비교와 문자열 비교
+    - 기본 타입의 값 비교는 `==`을 사용한다.
+    - 문자열의 비교는 equals() 메서드 사용
+
+```java
+int x = 5
+boolean result = (x == 5);
+//true
+
+boolean result = inputData.equals("비교 문자열");
+```
+
