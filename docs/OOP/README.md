@@ -306,3 +306,64 @@ Car(String model, String color, int maxSpeed) {
 ```
 
 
+## 메 서 드 
+
+- 메서드 선언부
+    - 리턴 타입 : 메서드가 리턴하는 결과의 타입 표시
+    - 메서드 이름 : 메서드의 기능 드러나도록 식별자 규칙에 맞게 이름 작성
+    - 매개 변수 선언 : 메서드가 실행할 때 필요한 데이터를 받기 위한 변수
+    - 메서드 실행 블록 : 실행할 코드 작성
+
+
+* 매개 변수의 개수를 모를 때 !!!!!
+
+```java
+
+int sum1(int[] values) {
+
+return 리턴값;
+}
+
+int[] values = {1, 2, 3};
+int result = sum1(values);
+int result = sum1(new int[] {1, 2, 3, 4});
+```
+
+
+
+* 메서드 오버로딩
+
+```java
+
+    public void multiply(String x){
+        this.result_buffer = this.result_buffer * Double.parseDouble(x);
+        this.show_result();
+    }
+
+    public void multiply(double ...dbs){
+        this.reset();
+        for (double d : dbs){
+            // 최초에 0번째 인덱스 값을 넣어준다 -> 버퍼를 처음에 0으로 초기화 했으니까!
+            if (d == dbs[0]){
+                this.result_buffer = d;
+            }
+            this.result_buffer *= d;
+        }
+        this.show_result();
+    }
+    // if just on argumnent  given in multiply -> do multiply with result buffer
+    public void multiply(double x){
+        this.result_buffer = this.result_buffer * x;
+        this.show_result();
+    }
+}
+```
+
+- 이번에 만든 계산기 클래스의 구조.
+    - multiply 라는 메서드를 오버로딩해서 다양한 상황에 대체 하도록 만듦
+
+* 실제 `System.out.println() 메서드 구현`
+
+![1](images/1.png)
+
+
