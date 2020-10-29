@@ -266,7 +266,7 @@ Car(String color, String model) { }//오버로딩이 아니다.
 
 
 ```java
-
+public class Car{
 Car(String model) {
     this.model = model;
     this.color = "은색";
@@ -282,12 +282,14 @@ Car(String model String Color, int maxSpeed) {
     this.color = "은색";
     this.maxSpeed = 250;
 }
+}
 //중복
 ```
 
 * 중복코드 제거 방법
 
 ```java
+public class Car {
 Car(String model) {
     this(model, "은색", 250);
 }
@@ -298,6 +300,7 @@ Car(String model, String color, int maxSpeed) {
     this.model = model;
     this.color = color;
     this.maxSpeed = maxSpeed;
+}
 }
 // this (Car)를 호출해서, 중복코드 제거함
 ```
