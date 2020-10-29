@@ -62,6 +62,15 @@ for (초기화식; 조건식; 증감식) {
 }
 ```
 
+```java
+
+for (int i = 1; i <= 100; i++) {
+    sum += i;
+}
+System.out.println(sum);
+// 1부터 100까지 더한 값 출력 예
+```
+
 * for 문을 이용한 무한루프 예제
 
 ```java
@@ -89,4 +98,29 @@ public class Forloop {
 ```
 
 
+* While
+
+```java
+
+while (조건식) {
+    //조건식 true일경우
+    //로직 실행
+}
+
+
+do {
+    //최초 실행 맟 루프
+    // 최초에 이 블록 로직 수행 후,
+    // 조건식 참일 경우 계속해서 이 블록 로직 실행
+} while (조건식);
+
+```
+
+
+* break 문
+    - for, while, do-while, switch 문의 실행을 중지할 때 사용
+    - 주로 if문과 함께 사용함.
+
+* continue 문
+    - for 문의 증감식이나, while, do-while 문의 조건식으로 이동
 
