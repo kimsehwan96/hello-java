@@ -416,3 +416,102 @@ int result2 = Test.plus(5, 6);
 * 정적 메서드 사용시 주의 사항
     - 정적 메서드 선언 시 그 내부에 인스턴스 필드 및 메소드 사용 불가
     - 정적 메서드 선언 시 그 객체 자신 참조인 this 키워드 사용 불가
+
+
+# 상속
+
+- 상속이라는건 부모 클래스의 속성과 메서드들을 자식들이 상속받음을 의미
+    - 속성
+    - 메서드
+    - 필드 등을 상속 받음
+- 특징 : private 메서드, 속성들은 상속 받지 못함
+- 부모 클래스를 수정하면 상속받은 자식 클래스 모두 반영 되는 특징을 갖고 있음
+- 다중 상속은 최대한 피한다 (다이아몬드 상속은 자바에서 애초에 막혀있다.)
+- 상속의 특징 덕분에 다양한 디자인 패턴과 개발이 가능하다
+    - 팩토리 패턴이 대표적.
+
+예제 : CellPhone이라는 부모 클래스를 DmbCellPhone이 상속 받는 예제
+
+```java
+public class CellPhone {
+    String model;
+    String color;
+
+    void powerOn() { System.out.println("Power on ! " );}
+    void powerOff() { System.out.println("Power OFF !!"); }
+    void bell() { System.out.println("Bell wing wing ! " ); }
+    void sendVoice(String message) { System.out.println("me : " + message); } 
+    void receiveVoice(String message) { System.out.println("another : " + message ); }
+    void hangUp() { System.out.println("ended call !"); }
+
+    public static void main(String[] args){
+        CellPhone cellphone = new CellPhone();
+        cellphone.model = "iphone 3";
+        cellphone.color = "space gray";
+
+        cellphone.powerOn();
+        cellphone.sendVoice("Hello there!");
+        System.out.println(cellphone.model + ' ' + cellphone.color);
+    }
+    
+}
+```
+
+```java
+public class DmbCellPhone extends CellPhone { // CellPhone 클래스를 상속받음
+    int channel; //필드
+    
+    //생성자
+    DmbCellPhone(String model, String color, int channel) {
+        this.model = model;
+        this.color = color;
+        this.channel = channel;
+    }
+
+    //메서드
+    
+    void turnOnDmb() {
+        System.out.println("Channel : " + channel + "start recevice");
+    }
+
+    void chnageChannelDmb(int channel) {
+        this.channel = channel;
+        System.out.println("changed channel : " + channel);
+    }
+
+    void turnOffDmb() {
+        System.out.println("DMB turn off !!!!");
+    }
+
+    public static void main(String[] args){
+        DmbCellPhone dmbcellphone = new DmbCellPhone("S10", "Blue", 50);
+        dmbcellphone.turnOnDmb();
+        dmbcellphone.chnageChannelDmb(123);
+        dmbcellphone.receiveVoice("Hello dmb! I'm iphone from cellphone");        
+    }
+}
+```
+
+
+## 부모 생성자 호출
+
+- 자식 객체 생성할 때 부모 객체가 먼저 생성되고, 그 다음 자식 객체가 생성 됨
+    - 자식 생성자의 맨 첫 줄에서 부모 생성자가 호출 됨
+
+```java
+public DmbCellPhone(){
+    super();
+}
+
+public CellPhone(){
+
+}
+```
+
+- 명시적으로 부모 생성자 호출 하려는 경우에는
+
+```java
+자식클래스(매개변수 선언) {
+    super(매개값,...);
+}
+```
