@@ -646,10 +646,88 @@ public class Child extends Parent {
 - 클래스 및 메서드 선언시 final 키워드를 사용하면 상속과 관련됨
 
 
->> 상속 할 수 없는 final 클래스
+### 상속 할 수 없는 final 클래스
 - 부모 클래스가 될 수 없어 자식 클래스 만들 수 없음을 의미
 
->> 재정의 할 수 없는 final 메소드
+### 재정의 할 수 없는 final 메소드
 - 부모 클래스에 선언된 final 메서드는 자식 클래스에서 메서드 오버라이딩 <strong>불가</strong>
 
 
+# 다형성
+- 클래스 타입 변환, 자동 타입 변환, 다형성, 강제 타입 변환, instanceof
+- 기본 타입과 마찬가지로 클래스도 타입 변환이 있다.
+- 객체 지향의 다형성을 구현하는것이 가능함.
+
+* 다형성
+    - 사용 방법은 동일하지만 다양한 객체 활용해 여러 실행결과가 나오도록 하는 성질
+    - 메소드 재정의와 타입 변환으로 구현한다.
+
+* 자동 타입 변환
+    - 프로그램 실행 도중 자동으로 타입 변환이 일어나는 것
+
+`부모타입 변수 = 자식타입;`
+
+```java
+Cat cat = new Cat();
+Animal animal = cat;
+```
+
+
+- 바로 위 부모가 아니더라도 상속 계층에서 상위 타입인 경우 자동 타입 변환 일어날 수 있음
+
+- 부모 타입으로 자동 타입 변환 이후에는 부모 클래스에 선언된 필드 및 메소드만 접근 가능
+- 예외적으로, 메소드가 자식 클래스에서 제정의될 경우 자식 클래스의 메소드가 대신 호출
+
+```java
+
+class Parent {
+    void method1() { }
+    void method2() { }
+}
+
+class Child extends Parent {
+    @Override
+    void method2() { } //메서드 오버라이딩
+
+    void method3() { } // Child만의 메서드
+}
+
+class ChildExample {
+    public static void main(String[] args) {
+        Child child = new Child();
+
+        Parent parent = child; // child 인스턴스의 타입을 부모 클래스의 타입으로 변경한거,, 부모의 속성만 사용이 가능하당
+        parent.method1(); //부모 클래스의 메서드1 호출
+        parent.method2(); // 오버라이딩 된 Child의 메서드 2 호출
+        parent.method3(); //불가능해유
+    } 
+}
+```
+
+## 필드의 다형성
+- 필드 타입을 부모 타입으로 선언 할 경우
+    - 다양한 자식 객체가 저장되어 핖드 사용 결과 달라 질 수 있음
+
+* 예를들어 자동차의 타이어는 각자 다른 메이커의 타이어고, 성능이 다를 수 있음
+
+```java
+class Car {
+    Tire frontLeftTire = new Tire();
+    Tire frontRightTire = new Tire();
+    Tire backLeftTire = new Tire();
+    Tire backRightTire = new Tire();
+
+    void run() {
+        frontLeftTire.roll();
+        frontRightTire.roll();
+        backLeftTire.roll();
+        backRightTire.roll();
+    }
+ }
+
+ ////////////////////////////////////
+    Car myCar = new Car(); //Car 클래스의 객체 생성
+    myCar.frontRightTire = new HankookTire(); //myCar객체의 타이어(부모객체)를 자식객체인 Hankook타이어를 넣어줌
+    myCar.backLeftTire = new KumhoTire();
+    myCar.run();
+```
