@@ -731,3 +731,33 @@ class Car {
     myCar.backLeftTire = new KumhoTire();
     myCar.run();
 ```
+
+`CarPolynom 참조`
+
+## 매개 뱐수의 다형성
+- 매개 변수를 부모 타입으로 선언하는 효과
+    - 메소드 호출 시 매개값으로 부모 객체 및 모든 자식 객체를 제공할 수 있음
+    - 자식의 재정의된 메소드가 호출 -> 다형성
+
+```java
+class Driver {
+    void drive(Vehicle vehicle) {
+        vehicle.run(); //vehicle을 상속받은 자식 클래스들에서 run 메서드를 재정의하면 여러 새로운 동작들을 구현 할 수 있겠쥬!!!
+        // vehicle을 상속받는 자식 클래스들은 뭐 bus car이런거겠죵
+    }
+}
+```
+
+```java
+Driver driver = new Driver();
+Vehicle vehicle = new vehicle;
+driver.drvie(vehicle);
+
+//이건 부모객체 운전하는거구
+
+Driver driver = new Driver();
+Bus bus = new Bus();
+driver.drive(bus); //자동 타입 변환이 발생합니다
+// Vehicle vehicle = bus; 이게 자동으로 된다는거쥬
+
+```
