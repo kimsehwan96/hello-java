@@ -500,7 +500,7 @@ public class DmbCellPhone extends CellPhone { // CellPhone 클래스를 상속�
 
 ```java
 public DmbCellPhone(){
-    super();
+    super();//부모클래스의 생성자 정의 되어 있을 경우.
 }
 
 public CellPhone(){
@@ -515,3 +515,141 @@ public CellPhone(){
     super(매개값,...);
 }
 ```
+
+
+## 메서드 오버라이딩 (Overriding)
+
+- 부모 클래스의 메소드가 자식 클래스에서 사용하기에 부적합 할 경우 자식클래스에서 수정하여 사용
+
+- 메서드 오버라이딩 방법
+    - 부모 메서드와 동일한 시그니처 가져야 함
+    - 접근 제한 더 강하게 재정의 불가능
+    - 새로운 예외를 throws 할 수 없음
+
+- 메서드가 재정의 될 경우 부모 객체 메서드가 숨겨지며
+    - 자식 객체에서 메서드 호출하면 재정의된 자식 메서드가 호출 됨
+
+
+* 자바와 파이썬의 비교
+
+```java
+
+class Parent {
+    void method1() { }
+    void method2() { }
+}
+
+
+class Child extends Parent {
+    @Override
+    void method1() { }
+
+    void method2() { }
+
+    //둘다 부모 메서드를 오버라이딩 하는 로직이다.
+    // 웬만하면 명시해서 오버라이딩 하도록 합시다.
+}
+```
+
+실제 자바 코드 예
+
+```java
+public class Calculator {
+    public void whoAmI(){
+        System.out.println("this is cacluator");
+    }
+
+    public void showNumber(int x){
+        System.out.println("this is number" + x);
+    }
+}
+
+/////////////////////////////////////////////////
+public class Computer extends Calculator{
+    @Override
+    public void whoAmI(){
+        System.out.println("I am Computer !");
+    }
+    
+    public void showNumber(int x) {
+        System.out.println("this is computer's number" + (x*2));
+    }
+    
+    
+    public static void main(String[] args){
+        Computer com = new Computer();
+
+        com.whoAmI();;
+        com.showNumber(5);
+    }
+}
+////////////////////////////////////////////
+```
+
+
+*파이썬에서의 오버라이딩*
+
+```python3
+
+class Parent:
+    def method1(self):
+        pass
+    
+    def method2(self):
+        pass
+
+class Childe(Parent):
+    def method1(self):
+        pass
+
+    def method2(self):
+        pass
+    #둘다 메서드 오버라이딩
+```
+
+
+- 이러한 메서드 오버라이딩의 개념을 이용해서 활용 가능한게 추상 메서드
+- 추상 메서드는 부모 클래스를 자식클래스가 상속받을 때, 자식 클래스에서 무조건 메서드의 동작을 구현하도록 강요하는 기법
+
+- 협업 할 때 기능에 대한 이야기와, 리턴형, 로직, 메서드명을 이야기하고 추상메서드화
+- 추후 실제 클래스를 구현 할 때 이 부분을 같이 만들면 오케이
+
+- 자바에서는 interface로, Python에서는 abstractMethod로 구현.
+
+
+
+## 부모 메서드 호출
+- 자식 클래스에서 오버라이딩 되어버린 부모 클래스 메소드를 호출해야 하는 경우
+- 명시적으로 super 키워드 붙여 부모 메소드를 호출한다.
+
+```java
+
+public class Parent {
+    void method1() { }
+    void method2() { }
+}
+
+public class Child extends Parent {
+    @Override
+    void method2() { }
+    
+    void method3() {
+        method2(); //오버라이딩 된 Child의 method2
+        super.method2(); //부모 클래스의 method2 호출
+    }
+}
+```
+
+## final 클래스와 final method
+
+- 해당 선언이 최종 상태이며 수정 될 수 없음을 의미
+- 클래스 및 메서드 선언시 final 키워드를 사용하면 상속과 관련됨
+
+
+>> 상속 할 수 없는 final 클래스
+- 부모 클래스가 될 수 없어 자식 클래스 만들 수 없음을 의미
+
+>> 재정의 할 수 없는 final 메소드
+- 부모 클래스에 선언된 final 메서드는 자식 클래스에서 메서드 오버라이딩 <strong>불가</strong>
+
+
