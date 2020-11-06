@@ -18,5 +18,4 @@ public class CellPhone {
         cellphone.sendVoice("Hello there!");
         System.out.println(cellphone.model + ' ' + cellphone.color);
     }
-    
 }
