@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class CalculatorApp extends JFrame implements ActionListener
 {
-    Calculator cal = new Calculator(); // 구현한 계산기 인스턴스 생 ~ 성 
+    Calculator cal = new Calculaor(); // 구현한 계산기 인스턴스 생 ~ 성 
     JPanel textArea = new JPanel();
     JPanel operPad = new JPanel();
     JPanel reset = new JPanel();

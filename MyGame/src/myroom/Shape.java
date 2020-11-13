@@ -1,4 +1,6 @@
-public class Shape {
+package myroom;
+
+public abstract class Shape implements DrawLineShape{
     int x;
     int y;
     int sizeX;
@@ -15,4 +17,5 @@ public class Shape {
     int getY() {
         return this.y;
     }
+    public abstract int whoIs();
 }
