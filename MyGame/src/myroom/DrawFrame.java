@@ -6,6 +6,9 @@ import javax.swing.*;
 public class DrawFrame extends JFrame {
     Shape[] arr = new Shape[100];
     public void paint(Graphics g) {
+        g.setColor(Color.white);
+        g.fillRect(0, 0, 500, 500);
+
         g.setColor(Color.red);
         for (Shape o: arr) {
             if ( o != null ) {

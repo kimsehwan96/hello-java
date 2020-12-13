@@ -197,3 +197,39 @@ public enum Week {
 }
 ```
 
+## null과 NullPointerException
+
+- 참조타입 변수가 null 상태에서 존재하지 않는 객체의 데이터나 메소드 사용 할 떄 발생.
+
+```java
+int[] intArray = null;
+intArray[0] = 10; //NullPointerException
+
+String str = null;
+System.out.println("총 문자수 : " + str.length()); //NullPointerException
+```
+
+## String 타입
+
+- String 변수에 문자열 리터럴을 대입할 경우
+    - String 객체로 생성되고, 변수가 String 객체 참조
+
+```java
+public class RefTest {
+    public static void main(String[] args){
+        String text = "Hello";
+        String a = "Hello";
+        String b = a;
+        String c = new String("Hello");
+        System.out.println((text == a)); //true
+        System.out.println(a == b); //true
+        System.out.println(text == c); //false
+        System.out.println(text.equals(c)); //true
+    }    
+}
+```
+
+
+- 문자열 리터럴이 동일한 경우 같은 String 객체를 공유.
+    - `==` 연산자는 같은 객체를 참조하는지(번지) 비교하는 연산자.
+

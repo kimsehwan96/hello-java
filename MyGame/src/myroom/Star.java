@@ -1,18 +1,16 @@
 package myroom;
 
-public class Star extends Shape{
+public class Star extends Shape implements DrawLineShape{
 
     int[] dataSet = new int[MAX_LINE];
-    int lineVolume;
+    int lineVolume = 6;
 
     Star(int x, int y, int sizeX, int sizeY) {
         super(x, y, sizeX, sizeY);
-        drawLineDataSet(6);
     }
 
     @Override
-    public void drawLineDataSet(int lineVolume) {
-        this.lineVolume = lineVolume;
+    public void drawLineDataSet() {
         dataSet[0] = x;
         dataSet[1] = y;
         dataSet[2] = x - sizeX / 2;

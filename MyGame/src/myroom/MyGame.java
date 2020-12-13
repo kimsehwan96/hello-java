@@ -1,6 +1,7 @@
 package myroom;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class MyGame {
     public static void main(String[] args) throws InterruptedException {
@@ -13,6 +14,9 @@ public class MyGame {
         f.addKeyListener(key);
 
         int count = 0;
+        ActionListener listener = new TimerFPS(f);
+        Timer t = new Timer(100, listener);//0.1sec
+        t.restart();
 
         while(true) {
             Thread.sleep(100);
@@ -20,8 +24,8 @@ public class MyGame {
                 f.arr[count] = new Rectangle( 
                     (int)(Math.random()*450), 
                     (int)(Math.random()*450), 
-                    (int)(Math.random()*50), 
-                    (int)(Math.random()*50));
+                    (int)(Math.random()*30)+20, 
+                    (int)(Math.random()*30)+20);
                 count++;
                 f.repaint();
                 key.event = 0;
@@ -30,8 +34,8 @@ public class MyGame {
                 f.arr[count] = new Cycle(
                     (int)(Math.random()*450), 
                     (int)(Math.random()*450), 
-                    (int)(Math.random()*50), 
-                    (int)(Math.random()*50));
+                    (int)(Math.random()*30)+20, 
+                    (int)(Math.random()*30)+20);
                 count++;
                 f.repaint();
                 key.event = 0;
@@ -40,8 +44,8 @@ public class MyGame {
                 f.arr[count] = new Triangle(
                     (int)(Math.random()*450), 
                     (int)(Math.random()*450), 
-                    (int)(Math.random()*50), 
-                    (int)(Math.random()*50));
+                    (int)(Math.random()*30)+20, 
+                    (int)(Math.random()*30)+20);
                 count++;
                 f.repaint();
                 key.event = 0;
@@ -50,8 +54,8 @@ public class MyGame {
                 f.arr[count] = new Star(
                     (int)(Math.random()*450), 
                     (int)(Math.random()*450), 
-                    (int)(Math.random()*50), 
-                    (int)(Math.random()*50));
+                    (int)(Math.random()*30)+20, 
+                    (int)(Math.random()*30)+20);
                 count++;
                 f.repaint();
                 key.event = 0;
