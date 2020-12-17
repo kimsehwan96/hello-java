@@ -1,4 +1,7 @@
 public class Calculator {
+    public Calculator(){
+        System.out.println("caluator generated ");
+    }
     public void whoAmI(){
         System.out.println("this is cacluator");
     }
